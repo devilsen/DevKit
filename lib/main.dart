@@ -278,8 +278,8 @@ class CommandGridView extends StatefulWidget {
       content: 'flutter content',
     ),
     Command(
-      name: 'flutter1',
-      content: 'flutter content1',
+      name: 'dart',
+      content: 'dart content',
     ),
   ];
 
