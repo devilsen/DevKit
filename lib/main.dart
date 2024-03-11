@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'core/CommandEngine.dart';
 import 'feature/model/ToolBox.dart';
 import 'feature/model/command.dart';
 
@@ -317,12 +318,14 @@ class CommandItem extends StatefulWidget {
 
 class _CommandItemState extends State<CommandItem> {
   Color _color = Colors.white;
+  final CommandEngine _commandEngine = CommandEngine();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         print(widget.command.content);
+        _commandEngine.execute(widget.command);
       },
       onHover: (value) {
         if (value) {
