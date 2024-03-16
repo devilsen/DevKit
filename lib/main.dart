@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/CommandEngine.dart';
-import 'feature/model/toolbox.dart';
+import 'feature/model/tool_box.dart';
 import 'feature/model/command.dart';
 
 void main() {
@@ -167,7 +167,7 @@ class _ContentTitleState extends State<ContentTitle> {
 class ToolBoxListView extends StatefulWidget {
   const ToolBoxListView({super.key});
 
-  static const List<ToolBox> toolBoxList = [
+  static List<ToolBox> toolBoxList = [
     ToolBox(
       title: 'Flutter',
       commands: [
