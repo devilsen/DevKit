@@ -1,13 +1,13 @@
-import 'tool_room.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'tool_room.dart';
 
 part 'kit.g.dart';
 
 @JsonSerializable()
 class Kit {
-  final List<ToolRoom> categoryList;
+  final List<ToolRoom> toolRoomList;
 
-  Kit({required this.categoryList});
+  Kit({required this.toolRoomList});
 
   factory Kit.fromJson(Map<String, dynamic> json) => _$KitFromJson(json);
   Map<String, dynamic> toJson() => _$KitToJson(this);

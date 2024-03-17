@@ -1,13 +1,11 @@
-import '../feature/model/command.dart';
 import 'dart:io';
 
+import 'model/command.dart';
+
 class CommandEngine {
-
   void execute(Command command) async {
-    // 执行第一个系统命令 "ls"
-    await executeCommand('ls');
-
-    await executeCommand('adb', ['devices']);
+    print('Executing command: $command');
+    await executeCommand(command.executable(), command.arguments());
   }
 
   Future<void> executeCommand(String command, [List<String> arguments = const []]) async {
@@ -15,5 +13,4 @@ class CommandEngine {
     ProcessResult results = await Process.run(command, arguments);
     print(results.stdout);
   }
-
 }

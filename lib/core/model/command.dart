@@ -15,6 +15,14 @@ class Command {
   factory Command.fromJson(Map<String, dynamic> json) => _$CommandFromJson(json);
   Map<String, dynamic> toJson() => _$CommandToJson(this);
 
+  String executable() {
+    return content.split(' ').first;
+  }
+
+  List<String> arguments() {
+    return content.split(' ').sublist(1);
+  }
+
   @override
   String toString() {
     return 'Command{name: $name, content: $content}';

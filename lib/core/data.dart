@@ -1,19 +1,28 @@
-{
-  "categoryList": [
+
+import 'dart:convert';
+
+import 'model/kit.dart';
+
+
+class Data {
+
+  static const String demoJson = """
+  {
+  "toolRoomList": [
     {
       "name": "Development Tools",
       "image": "path/to/development_tools.png",
       "toolBoxList": [
         {
-          "title": "Git Commands",
+          "title": "切换深浅颜色模式",
           "commands": [
             {
-              "name": "git clone",
-              "content": "Clone a Git repository from a remote server."
+              "name": "浅色模式",
+              "content": "adb shell cmd uimode night no"
             },
             {
-              "name": "git status",
-              "content": "Show the status of the working directory."
+              "name": "深色模式",
+              "content": "adb shell cmd uimode night yes"
             }
           ]
         },
@@ -52,4 +61,11 @@
       ]
     }
   ]
+}
+  """;
+
+  static Kit getKit() {
+    return Kit.fromJson(json.decode(demoJson) as Map<String, dynamic>);
+  }
+
 }

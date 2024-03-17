@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'core/CommandEngine.dart';
-import 'feature/model/tool_box.dart';
-import 'feature/model/command.dart';
+import 'core/data.dart';
+import 'core/model/kit.dart';
+import 'feature/home/directory_page.dart';
+import 'feature/home/tool_room_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,8 +26,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Kit kit = Data.getKit();
+
+  @override
+  void initState() {
+    super.initState();
+    print("Home init state");
+
+    requestKit();
+  }
+
+  void requestKit() async {
+    Kit kit = Data.getKit();
+    setState(() {
+      this.kit = kit;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,299 +57,13 @@ class HomePage extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(10),
         color: Colors.blueAccent,
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CategoryPage(),
-            Expanded(flex: 3, child: CategoryContentPage())
+            DirectoryPage(kit.toolRoomList),
+            Expanded(flex: 3, child: ToolRoomPage(kit.toolRoomList[0]))
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CategoryPage extends StatelessWidget {
-  const CategoryPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      decoration: BoxDecoration(
-        color: Colors.white70,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CategoryTitle(),
-          Expanded(child: CategoryListView()),
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryListView extends StatelessWidget {
-  const CategoryListView({super.key});
-
-  @override
-  Widget build(BuildContext context) => ListView.builder(
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: Text('Item $index'),
-          onTap: () {
-            print('Item $index tapped');
-          },
-        );
-      });
-}
-
-class CategoryTitle extends StatelessWidget {
-  const CategoryTitle({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 48,
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('分组',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              )),
-          Icon(
-            Icons.settings,
-            color: Colors.black,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryContentPage extends StatelessWidget {
-  const CategoryContentPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: const Column(
-        children: [
-          ContentTitle(title: '开发'),
-          Expanded(child: ToolBoxListView()),
-        ],
-      ),
-    );
-  }
-}
-
-class ContentTitle extends StatefulWidget {
-  const ContentTitle({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<ContentTitle> createState() => _ContentTitleState();
-}
-
-class _ContentTitleState extends State<ContentTitle> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(20, 15, 10, 15),
-      height: 48,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(widget.title,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              )),
-          const Icon(
-            Icons.add,
-            color: Colors.black,
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ToolBoxListView extends StatefulWidget {
-  const ToolBoxListView({super.key});
-
-  static List<ToolBox> toolBoxList = [
-    ToolBox(
-      title: 'Flutter',
-      commands: [
-        Command(
-          name: 'flutter',
-          content: 'flutter content',
-        ),
-        Command(
-          name: 'flutter1',
-          content: 'flutter content1',
-        ),
-      ],
-    ),
-    ToolBox(
-      title: 'Dart',
-      commands: [
-        Command(
-          name: 'dart',
-          content: 'dart content',
-        ),
-        Command(
-          name: 'dart1',
-          content: 'dart content1',
-        ),
-        Command(
-          name: 'dart2',
-          content: 'dart content2',
-        ),
-      ],
-    ),
-  ];
-
-  @override
-  State<StatefulWidget> createState() => _ToolBoxListViewState();
-}
-
-class _ToolBoxListViewState extends State<ToolBoxListView> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: ToolBoxListView.toolBoxList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ToolBoxItem(ToolBoxListView.toolBoxList[index]);
-      },
-    );
-  }
-}
-
-class ToolBoxItem extends StatelessWidget {
-  const ToolBoxItem(this.toolBox, {super.key});
-
-  final ToolBox toolBox;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Colors.grey,
-            width: 0.5,
-          )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            child: Text(toolBox.title,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                )),
-          ),
-          const CommandGridView(),
-        ],
-      ),
-    );
-  }
-}
-
-class CommandGridView extends StatefulWidget {
-  const CommandGridView({super.key});
-
-  static const List<Command> commands = [
-    Command(
-      name: 'flutter',
-      content: 'flutter content',
-    ),
-    Command(
-      name: 'dart',
-      content: 'dart content',
-    ),
-  ];
-
-  @override
-  State<StatefulWidget> createState() => _CommandGridViewState();
-}
-
-class _CommandGridViewState extends State<CommandGridView> {
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: CommandGridView.commands.length,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          childAspectRatio: 3.5,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return CommandItem(CommandGridView.commands[index]);
-        });
-  }
-}
-
-class CommandItem extends StatefulWidget {
-  const CommandItem(this.command, {super.key});
-
-  final Command command;
-
-  @override
-  State<StatefulWidget> createState() => _CommandItemState();
-}
-
-class _CommandItemState extends State<CommandItem> {
-  Color _color = Colors.white;
-  final CommandEngine _commandEngine = CommandEngine();
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print(widget.command.content);
-        _commandEngine.execute(widget.command);
-      },
-      onHover: (value) {
-        if (value) {
-          setState(() {
-            _color = Colors.blueGrey.shade50;
-          });
-        } else {
-          setState(() {
-            _color = Colors.white;
-          });
-        }
-      },
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: _color,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: Colors.blueAccent, width: 1.5),
-        ),
-        child: Text(widget.command.name),
       ),
     );
   }

@@ -1,5 +1,6 @@
-import 'package:devkit/feature/model/command.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'command.dart';
 
 part 'tool_box.g.dart';
 

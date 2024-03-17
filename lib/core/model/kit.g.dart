@@ -7,11 +7,11 @@ part of 'kit.dart';
 // **************************************************************************
 
 Kit _$KitFromJson(Map<String, dynamic> json) => Kit(
-      categoryList: (json['categoryList'] as List<dynamic>)
+      toolRoomList: (json['toolRoomList'] as List<dynamic>)
           .map((e) => ToolRoom.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$KitToJson(Kit instance) => <String, dynamic>{
-      'categoryList': instance.categoryList,
+      'toolRoomList': instance.toolRoomList,
     };

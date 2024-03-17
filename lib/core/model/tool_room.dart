@@ -1,5 +1,6 @@
-import 'package:devkit/feature/model/tool_box.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'tool_box.dart';
 
 part 'tool_room.g.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:devkit/feature/model/command.dart';
-import 'package:devkit/feature/model/tool_box.dart';
+import 'package:devkit/core/model/command.dart';
+import 'package:devkit/core/model/tool_box.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -34,5 +34,6 @@ void main() {
     expect(toolBox1.title, toolBox2.title);
     expect(toolBox1.commands[0].content, toolBox2.commands[0].content);
   });
+
 
 }
