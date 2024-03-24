@@ -6,8 +6,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('CommandJsonSerializable', () {
-    final command1 = const Command(name: '浅色模式', content: 'adb devices');
-    // final command2 = const Command(name: '深色模式', content: 'adb devices');
+    final command1 = const Command(name: '浅色模式', content: 'download devices');
+    // final command2 = const Command(name: '深色模式', content: 'download devices');
 
     final command1Json = command1.toJson();
     print("command1Json: $command1Json");
@@ -20,8 +20,8 @@ void main() {
   });
 
   test('toolBoxJsonSerializable', () {
-    final command1 = const Command(name: '浅色模式', content: 'adb devices');
-    final command2 = const Command(name: '深色模式', content: 'adb devices');
+    final command1 = const Command(name: '浅色模式', content: 'download devices');
+    final command2 = const Command(name: '深色模式', content: 'download devices');
 
     final toolBox1 = ToolBox(title: 'ToolBox1', commands: [command1, command2]);
 

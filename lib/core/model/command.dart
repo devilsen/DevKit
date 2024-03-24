@@ -28,4 +28,8 @@ class Command {
     return 'Command{name: $name, content: $content}';
   }
 
+  bool isOutput() {
+    return content.contains(' > ');
+  }
+
 }
