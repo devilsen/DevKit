@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/model/tool_room.dart';
+import '../../core/provider/tool_room_model.dart';
 
 class DirectoryPage extends StatelessWidget {
-
   final List<ToolRoom> toolRoomList;
 
   const DirectoryPage(this.toolRoomList, {super.key});
@@ -60,6 +61,14 @@ class CategoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (toolRoomList.isEmpty) {
+      return const Center(
+        child: Text('No data'),
+      );
+    }
+
+    Provider.of<ToolRoomModel>(context, listen: false).updateSelectedToolRoom(toolRoomList[0]);
+
     return ListView.builder(
         itemCount: toolRoomList.length,
         itemBuilder: (BuildContext context, int index) {
@@ -67,7 +76,8 @@ class CategoryListView extends StatelessWidget {
           return ListTile(
             title: Text(toolRoom.name),
             onTap: () {
-              print('Item $index ${toolRoom.name} tapped');
+              Provider.of<ToolRoomModel>(context, listen: false)
+                  .updateSelectedToolRoom(toolRoom);
             },
           );
         });

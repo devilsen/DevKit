@@ -10,7 +10,7 @@ class Data {
   {
   "toolRoomList": [
     {
-      "name": "Development Tools",
+      "name": "开发",
       "image": "path/to/development_tools.png",
       "toolBoxList": [
         {
@@ -27,15 +27,36 @@ class Data {
           ]
         },
         {
-          "title": "Design Tools",
+          "title": "App调试",
           "commands": [
             {
-              "name": "Figma",
-              "content": "A web-based design tool for prototyping and collaboration."
+              "name": "清空数据",
+              "content": "adb shell pm clear com.lixiang.car.tuning"
             },
             {
-              "name": "Adobe XD",
-              "content": "A user experience design and prototyping tool."
+              "name": "提取完整日志",
+              "content": "adb pull ./log ~/Downloads/logs/"
+            },
+            {
+              "name": "创建文件夹",
+              "content": "mkdir -p ~/Downloads/logs"
+            },
+            {
+              "name": "Kill",
+              "content": "kp tuning"
+            }
+          ]
+        },
+        {
+          "title": "App走查",
+          "commands": [
+            {
+              "name": "截取主驾屏",
+              "content": "adb exec-out screencap -d 0 -p > ~/Downloads/front_1.png"
+            },
+            {
+              "name": "截取副驾屏",
+              "content": "adb exec-out screencap -d 1 -p > ~/Downloads/rear_1.png"
             }
           ]
         }

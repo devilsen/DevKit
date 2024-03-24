@@ -1,4 +1,6 @@
+import 'package:devkit/core/provider/tool_room_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'core/data.dart';
 import 'core/model/kit.dart';
@@ -21,7 +23,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: ChangeNotifierProvider(
+        create: (context) => ToolRoomModel(),
+        child: const HomePage(),
+      ),
     );
   }
 }

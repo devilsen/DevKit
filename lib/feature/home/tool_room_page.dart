@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/command_engine.dart';
 import '../../core/model/command.dart';
 import '../../core/model/tool_box.dart';
 import '../../core/model/tool_room.dart';
-
+import '../../core/provider/tool_room_model.dart';
 
 class ToolRoomPage extends StatelessWidget {
   final ToolRoom toolRoom;
@@ -21,8 +22,19 @@ class ToolRoomPage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ContentTitle(title: toolRoom.name),
-          Expanded(child: ToolBoxListView(toolRoom.toolBoxList)),
+          Consumer<ToolRoomModel>(
+            builder: (context, toolRoomModel, child) {
+              return ContentTitle(title: toolRoomModel.selectedToolRoom.name);
+            },
+          ),
+          Consumer<ToolRoomModel>(
+            builder: (context, toolRoomModel, child) {
+              return Expanded(
+                child:
+                    ToolBoxListView(toolRoomModel.selectedToolRoom.toolBoxList),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -72,7 +84,6 @@ class ToolBoxListView extends StatefulWidget {
 }
 
 class _ToolBoxListViewState extends State<ToolBoxListView> {
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
