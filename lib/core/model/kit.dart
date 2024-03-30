@@ -10,6 +10,10 @@ class Kit {
   Kit({required this.toolRoomList});
 
   factory Kit.fromJson(Map<String, dynamic> json) => _$KitFromJson(json);
+
   Map<String, dynamic> toJson() => _$KitToJson(this);
 
+  static Kit empty() {
+    return Kit(toolRoomList: []);
+  }
 }
