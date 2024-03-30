@@ -39,7 +39,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Kit kit = Data.getKit();
+  Kit? kit;
 
   @override
   void initState() {
@@ -50,10 +50,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   void requestKit() async {
-    Kit kit = Data.getKit();
+    Kit kit = await Data.getKit();
     setState(() {
       this.kit = kit;
     });
+  }
+
+  Widget loadingData() {
+    if (kit == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          DirectoryPage(kit!.toolRoomList),
+          Expanded(flex: 3, child: ToolRoomPage(kit!.toolRoomList[0]))
+        ],
+      );
+    }
   }
 
   @override
@@ -62,13 +76,7 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         padding: const EdgeInsets.all(10),
         color: Colors.blueAccent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DirectoryPage(kit.toolRoomList),
-            Expanded(flex: 3, child: ToolRoomPage(kit.toolRoomList[0]))
-          ],
-        ),
+        child: loadingData(),
       ),
     );
   }

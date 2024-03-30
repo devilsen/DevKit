@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +68,9 @@ class CategoryListView extends StatelessWidget {
       );
     }
 
-    Provider.of<ToolRoomModel>(context, listen: false).updateSelectedToolRoom(toolRoomList[0]);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ToolRoomModel>(context, listen: false).updateSelectedToolRoom(toolRoomList[0]);
+    });
 
     return ListView.builder(
         itemCount: toolRoomList.length,
@@ -76,8 +79,7 @@ class CategoryListView extends StatelessWidget {
           return ListTile(
             title: Text(toolRoom.name),
             onTap: () {
-              Provider.of<ToolRoomModel>(context, listen: false)
-                  .updateSelectedToolRoom(toolRoom);
+              Provider.of<ToolRoomModel>(context, listen: false).updateSelectedToolRoom(toolRoom);
             },
           );
         });
