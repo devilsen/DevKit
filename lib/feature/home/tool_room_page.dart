@@ -1,3 +1,4 @@
+import 'package:devkit/core/provider/terminal_text_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +31,7 @@ class ToolRoomPage extends StatelessWidget {
           Consumer<ToolRoomModel>(
             builder: (context, toolRoomModel, child) {
               return Expanded(
-                child:
-                    ToolBoxListView(toolRoomModel.selectedToolRoom.toolBoxList),
+                child: ToolBoxListView(toolRoomModel.selectedToolRoom.toolBoxList),
               );
             },
           ),
@@ -176,7 +176,9 @@ class _CommandItemState extends State<CommandItem> {
     return InkWell(
       onTap: () {
         print(widget.command.content);
-        _commandEngine.execute(widget.command);
+        _commandEngine
+            .execute(widget.command)
+            .then((value) => Provider.of<TerminalTextListModel>(context, listen: false).add(value));
       },
       onHover: (value) {
         if (value) {

@@ -1,14 +1,22 @@
 import 'package:devkit/core/provider/tool_room_model.dart';
+import 'package:devkit/feature/home/terminal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/data.dart';
 import 'core/model/kit.dart';
+import 'core/provider/terminal_text_list_model.dart';
 import 'feature/home/directory_page.dart';
 import 'feature/home/tool_room_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => ToolRoomModel()),
+      ChangeNotifierProvider(create: (context) => TerminalTextListModel(),
+      ),
+    ], child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -60,11 +68,17 @@ class _HomePageState extends State<HomePage> {
     if (kit == null) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return Column(
         children: [
-          DirectoryPage(kit!.toolRoomList),
-          Expanded(flex: 3, child: ToolRoomPage(kit!.toolRoomList[0]))
+          Expanded(
+            child: Row(
+              children: [
+                DirectoryPage(kit!.toolRoomList),
+                Expanded(flex: 3, child: ToolRoomPage(kit!.toolRoomList[0]))
+              ],
+            ),
+          ),
+          const TerminalPage()
         ],
       );
     }

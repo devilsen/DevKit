@@ -3,22 +3,22 @@ import 'dart:io';
 import 'model/command.dart';
 
 class CommandEngine {
-  void execute(Command command) async {
+  Future<String> execute(Command command) async {
     print('Executing command: $command');
-    if(command.isOutput()) {
-      await executeCommandWithOutput(command.executable(), command.arguments());
-      return;
+
+    if (command.isOutput()) {
+      return _executeCommandWithOutput(command.executable(), command.arguments());
     }
-    await executeCommand(command.executable(), command.arguments());
+    return _executeCommand(command.executable(), command.arguments());
   }
 
-  Future<void> executeCommand(String command, [List<String> arguments = const []]) async {
-    print('Executing command: $command ${arguments.join(' ')}');
+  Future<String> _executeCommand(String command, [List<String> arguments = const []]) async {
     ProcessResult results = await Process.run(command, arguments);
     print(results.stdout);
+    return results.stdout;
   }
 
-  Future<void> executeCommandWithOutput(String command, [List<String> arguments = const []]) async {
+  Future<String> _executeCommandWithOutput(String command, [List<String> arguments = const []]) async {
     String outputPath = 'download/front_1.png';
 
     Process process = await Process.start('adb', ['exec-out', 'screencap', '-d', '0', '-p']);
@@ -30,5 +30,7 @@ class CommandEngine {
     }
 
     await sink.close(); // 关闭文件流
+
+    return "";
   }
 }

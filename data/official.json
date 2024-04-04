@@ -54,19 +54,19 @@
       ]
     },
     {
-      "name": "Productivity Tools",
+      "name": "调试",
       "image": "path/to/productivity_tools.png",
       "toolBoxList": [
         {
-          "title": "Time Management",
+          "title": "系统命令",
           "commands": [
             {
-              "name": "Pomodoro Technique",
-              "content": "A time management method involving 25-minute work intervals."
+              "name": "ls",
+              "content": "ls -l"
             },
             {
-              "name": "Eisenhower Matrix",
-              "content": "A prioritization tool for tasks based on urgency and importance."
+              "name": "adb",
+              "content": "adb"
             }
           ]
         }

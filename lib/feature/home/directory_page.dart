@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:devkit/feature/home/setting_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,18 +37,15 @@ class DirectoryTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 48,
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('分组',
+          const Text('分组',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
               )),
-          Icon(
-            Icons.settings,
-            color: Colors.black,
-          )
+          SettingMenuButton()
         ],
       ),
     );
