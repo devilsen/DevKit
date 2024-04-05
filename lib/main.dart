@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/data.dart';
+import 'core/device_scanner.dart';
 import 'core/model/kit.dart';
 import 'core/provider/terminal_text_list_model.dart';
 import 'feature/home/directory_page.dart';
@@ -55,6 +56,7 @@ class _HomePageState extends State<HomePage> {
     print("Home init state");
 
     requestKit();
+    DeviceScanner.getDevices();
   }
 
   void requestKit() async {

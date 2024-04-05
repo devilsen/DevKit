@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:devkit/core/device_scanner.dart';
+
 import 'model/command.dart';
 
 class CommandEngine {
@@ -13,6 +15,11 @@ class CommandEngine {
   }
 
   Future<String> _executeCommand(String command, [List<String> arguments = const []]) async {
+    if (command == 'adb' && DeviceScanner.isConnectedDevice()) {
+      arguments.insert(0, '-s');
+      arguments.insert(1, DeviceScanner.selectedDevice.id);
+    }
+
     ProcessResult results = await Process.run(command, arguments);
     print(results.stdout);
     return results.stdout;

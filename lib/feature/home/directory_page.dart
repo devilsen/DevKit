@@ -1,3 +1,4 @@
+import 'package:devkit/feature/home/device_menu_button.dart';
 import 'package:devkit/feature/home/setting_menu_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ class DirectoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: 240,
       decoration: BoxDecoration(
         color: Colors.white70,
         borderRadius: BorderRadius.circular(8),
@@ -45,6 +46,7 @@ class DirectoryTitle extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 18,
               )),
+          const DeviceMenuButton(),
           SettingMenuButton()
         ],
       ),
