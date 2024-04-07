@@ -23,6 +23,10 @@ class Command {
     return content.split(' ').sublist(1);
   }
 
+  String getContent() {
+    return content;
+  }
+
   @override
   String toString() {
     return 'Command{name: $name, content: $content}';

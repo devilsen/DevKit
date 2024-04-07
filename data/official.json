@@ -29,10 +29,6 @@
               "content": "adb pull ./log ~/Downloads/logs/"
             },
             {
-              "name": "创建文件夹",
-              "content": "mkdir -p ~/Downloads/logs"
-            },
-            {
               "name": "Kill",
               "content": "kp tuning"
             }
@@ -67,6 +63,10 @@
             {
               "name": "adb",
               "content": "adb"
+            },
+            {
+              "name": "创建文件夹",
+              "content": "mkdir -p ~/Downloads/logs"
             }
           ]
         }
